@@ -3,8 +3,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
     <metadata>
         <id>Microsoft-ODBC-Driver</id>
-        <version>18.2.1.1</version>
-        <title>Microsoft® ODBC Driver for SQL Server®</title>
+        <version>$version$</version>
+        <title>Microsoft ODBC Driver 18 for SQL Server</title>
         <summary>
             Microsoft ODBC Driver for SQL Server is a single dynamic-link
             library (DLL) containing run-time support for applications using
@@ -24,15 +24,18 @@
         <projectUrl>
             https://learn.microsoft.com/en-us/sql/connect/odbc/microsoft-odbc-driver-for-sql-server
         </projectUrl>
+        <docsUrl>
+            https://go.microsoft.com/fwlink/?LinkId=191752
+        </docsUrl>
         <releaseNotes>
             See https://learn.microsoft.com/en-us/sql/connect/odbc/windows/release-notes-odbc-sql-server-windows.
         </releaseNotes>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <authors>Microsoft</authors>
-        <owners>Roemer</owners>
-        <tags>sqlserver sql odbc driver admin</tags>
+        <owners>Mwangi</owners>
+        <tags>microsoft-odbc-driver-17-for-sql-server sqlserver sql odbc driver</tags>
         <packageSourceUrl>
-            https://github.com/Roemer/chocolatey-packages
+            https://github.com/kidynamit/chocolatey-packages
         </packageSourceUrl>
         <dependencies>
             <dependency id="vcredist2017" />
