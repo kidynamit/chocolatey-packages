@@ -1,16 +1,20 @@
+Set-StrictMode -Version 3
 $ErrorActionPreference = 'Stop';
 
-$toolsDir       = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$fileLocation   = Join-Path $toolsDir 'msodbcsql-x86.msi'
-$file64Location = Join-Path $toolsDir 'msodbcsql-x64.msi'
+. (Join-Path -Path (Split-Path -Path $MyInvocation.MyCommand.Definition -Parent) -ChildPath 'packageData.ps1')
 
-#Based on Msi
-$packageArgs = @{
-  packageName       = 'Microsoft-ODBC-Driver'
-  silentArgs        = '/quiet /passive /qn /uninstall'
-  validExitCodes    = @(0,1641,3010)
-  file              = $fileLocation
-  fileType          = 'msi'
+[array] $uninstallKeys = Get-UninstallRegistryKey @packageData
+[array] $filteredUninstallKeys = $uninstallKeys | Where-Object { $_ -ne $null -and ($_.PSObject.Properties['SystemComponent'] -eq $null -or $_.SystemComponent -eq 0) }
+foreach ($uninstallKey in $filteredUninstallKeys)
+{
+    if ($uninstallKey -eq $null) { continue }
+
+    if ($uninstallKey.PSObject.Properties['UninstallString'] -ne $null)
+    {
+        Start-ChocolateyProcessAsAdmin "/x$($uninstallKey.PSChildName) $($uninstallData.SilentArgs)" "$($env:SystemRoot)\System32\msiexec.exe" -validExitCodes $uninstallData.ValidExitCodes
+    }
+    else
+    {
+        Write-Warning "The uninstall information in the registry does not contain the path to the uninstaller application. Please report this to package maintainers. Registry key path: [$($uninstallKey.PSPath)]"
+    }
 }
-
-Uninstall-ChocolateyPackage @packageArgs

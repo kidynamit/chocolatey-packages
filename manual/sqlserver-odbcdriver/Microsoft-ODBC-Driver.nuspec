@@ -33,13 +33,13 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <authors>Microsoft</authors>
         <owners>Mwangi</owners>
-        <tags>microsoft-odbc-driver-17-for-sql-server sqlserver sql odbc driver</tags>
+        <tags>microsoft-odbc-driver-18-for-sql-server sqlserver sql odbc driver</tags>
         <packageSourceUrl>
             https://github.com/kidynamit/chocolatey-packages
         </packageSourceUrl>
-        <dependencies>
-            <dependency id="vcredist2017" />
-        </dependencies>
+        <!--<dependencies>
+            <dependency id="vcredist140" version="14.28.29913"/>
+        </dependencies>-->
     </metadata>
     <files>
         <file src="tools\**" target="tools" />
