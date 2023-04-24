@@ -10,7 +10,6 @@ $packageData = @{
 
 $uninstallData = @{
     SilentArgs        = '/quiet /passive /qn'
-    ValidExitCodes    = @(0)
 }
 
 $installData32 = @{

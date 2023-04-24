@@ -11,10 +11,14 @@ foreach ($uninstallKey in $filteredUninstallKeys)
 
     if ($uninstallKey.PSObject.Properties['UninstallString'] -ne $null)
     {
-        Start-ChocolateyProcessAsAdmin "/x$($uninstallKey.PSChildName) $($uninstallData.SilentArgs)" "$($env:SystemRoot)\System32\msiexec.exe" -validExitCodes $uninstallData.ValidExitCodes
+        $uninstallData['SilentArgs'] = "$($uninstallKey.PSChildName) $($uninstallData.SilentArgs)"
+        $uninstallData['File'] = ''
+        $packageArgs = $packageData + $uninstallData
+        Uninstall-ChocolateyPackage @packageArgs
     }
     else
     {
-        Write-Warning "The uninstall information in the registry does not contain the path to the uninstaller application. Please report this to package maintainers. Registry key path: [$($uninstallKey.PSPath)]"
+        Write-Warning "The UninstallInformation in the registry does not contain the path to the uninstaller application. `
+                        Please report this to package maintainers. Registry key path: [$($uninstallKey.PSPath)]"
     }
 }
